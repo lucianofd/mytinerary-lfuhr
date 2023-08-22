@@ -8,12 +8,12 @@ function App() {
 
   return (
     
-    <div>
+    <>
     
    <MainHeader/>
    <Carousel/> 
       
-    </div>
+    </>
     
   )
 }

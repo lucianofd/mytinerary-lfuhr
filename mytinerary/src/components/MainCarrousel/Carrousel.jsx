@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const Carousel = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [imageGroups, setImageGroups] = useState([]);
   const [currentGroup, setCurrentGroup] = useState(0); 
   
@@ -19,46 +20,56 @@ const Carousel = () => {
         };
         setImageGroups(groups);
         setCurrentGroup(0);
-              
+        setIsLoading(false);
+            
        
       })
       .catch((error) => console.error('Error fetching cities.json:', error));
        
+      
+      
       // Cambia grupos de imágenes de forma automática
       const interval = setInterval(goToNextGroup, 5000);
       return () => clearInterval(interval);
 
   }, []);
+  
+
 
       const goToNextGroup = () => {
-         setCurrentGroup((prevGroup) => (prevGroup + 1) % imageGroups.length);
+         setCurrentGroup((currentGroup) => (currentGroup + 1) % imageGroups.length);
       };
       const goToPrevGroup = () => {
-         setCurrentGroup((prevGroup) => (prevGroup - 1 + cities.length) % imageGroups.length);
+         setCurrentGroup((prevGroup) => (prevGroup - 1 + imageGroups.length) % imageGroups.length);
       };
   
 
- 
+  if (isLoading){
+    return (
+      <div className="">
+        <h1>Cargando...</h1>
+      </div>
+    );
+  
+  }    
 
   return (
     <div className="bg-gray-200 py-10 relative">
       <h2 className="text-2xl font-bold mb-4 text-center">Popular Mytineraries</h2>
       <div className="flex justify-center items-center space-x-4 overflow-hidden">
         <div className="flex flex-wrap w-96 h-96">
-        {console.log('imageGroups[currentGroup]:', imageGroups[currentGroup])}
-            {imageGroups[currentGroup] && imageGroups[currentGroup].map((cityGroup) => (
-            <div className="flex w-1/2" key={cityGroup[0].id}>
-              {cityGroup.map((city) => (
-                <div
-                  key={city.id}
-                  className="w-1/2 p-2 rounded-md overflow-hidden shadow-lg transform transition-all duration-500"
-                >
-                  <img className="w-full h-full object-cover" src={city.image} alt={city.name} />
-                  <p className="text-white bg-blue-500 text-center p-2">{city.name}</p>
-                </div>
-              ))}
+          {console.log('imageGroups[currentGroup]:', imageGroups[currentGroup])}
+          {imageGroups[currentGroup] && imageGroups[currentGroup].map((city) => (
+            <div className="flex w-1/2" key={city.id}>
+              <div
+                key={city.id}
+                className="w-1/2 p-2 rounded-md overflow-hidden shadow-lg transform transition-all duration-500"
+              >
+                <img className="w-full h-full object-cover" src={city.image} alt={city.name} />
+                <p className="text-white bg-blue-500 text-center p-2">{city.name}</p>
+              </div>
             </div>
-              ))} 
+          ))}
         </div>
       </div>
       <div className="absolute inset-0 flex items-center justify-center">
@@ -70,13 +81,14 @@ const Carousel = () => {
         </button>
         <button
           onClick={goToNextGroup}
-          className="text-gray-600 hover:text-gray-900 transition duration-300"
+          className="text-red-600 hover:text-gray-900 transition duration-300"
         >
           {/* Ícono de flecha hacia la derecha */}
         </button>
       </div>
     </div>
   );
+  
 };
 
 export default Carousel;
