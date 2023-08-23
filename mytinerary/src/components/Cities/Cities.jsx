@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link as Anchor } from 'react-router-dom';
 import SearchBar from '../SearchBars/SearchBar';
 import MainHeader from '../../layouts/MainHeader/MainHeader';
+import { getItems } from '../../apiService';
 
 const Cities = () => {
   const [cities, setCities] = useState([]);
@@ -9,15 +11,17 @@ const Cities = () => {
 
   useEffect(() => {
     // Fetch data
-    fetch('/data/cities.json')
-      .then((response) => response.json())
-      .then((data) => {
-        setCities(data);
-        setFilteredCities(data);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const cities = await getItems();
+        setCities(cities);
+        setFilteredCities(cities);
+      } catch (error) {
         console.error('Error fetching cities:', error);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleFilteredResults = (filteredResults) => {

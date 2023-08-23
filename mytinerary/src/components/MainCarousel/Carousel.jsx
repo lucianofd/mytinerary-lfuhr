@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getItems } from '../../apiService';
 
 const Carousel = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -8,26 +9,24 @@ const Carousel = () => {
   console.log(currentGroup);
   
   useEffect(() => {
-    // Carga las imágenes desde el archivo cities.json
-    fetch('/data/cities.json')
-      .then((response) => response.json())
-      .then((data) => {
-        // Divide las imágenes en grupos de 4
+    const fetchData = async () => {
+      try {
+        const cities = await getItems(); //función get del servicio
         const groups = [];
-        for (let i = 0; i < data.length; i += 4) {
-          groups.push(data.slice(i, i + 4));
-          console.log(groups);
-        };
+
+        for (let i = 0; i < cities.length; i += 4) {
+          groups.push(cities.slice(i, i + 4));
+        }
+        
         setImageGroups(groups);
         setCurrentGroup(0);
         setIsLoading(false);
-            
-       
-      })
-      .catch((error) => console.error('Error fetching cities.json:', error));
-       
-      
-      
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+      }
+    };
+
+    fetchData();   
       // Cambia grupos de imágenes de forma automática
       const interval = setInterval(goToNextGroup, 5000);
       return () => clearInterval(interval);
