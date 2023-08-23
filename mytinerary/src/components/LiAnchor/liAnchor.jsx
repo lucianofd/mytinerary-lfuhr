@@ -7,12 +7,14 @@ const linkEs = [
   { key: '3', to: '#', content: 'About' },
 ];
 
-const LiAnchor = () => {
+const LiAnchor = ({ customStyle }) => {
+  const containerClasses = customStyle === 'footer-li-anchor' ? 'flex flex-col space-y-2' : 'flex space-x-4 bg-skayblue-500';
+  
   return (
-    <ul className="flex space-x-4 bg-skayblue-500">
+    <ul className={`text-black ${containerClasses}`}>
       {linkEs.map((item) => (
         <li key={item.key} className="cursor-pointer">
-          <Anchor to={item.to} className="text-white">
+          <Anchor to={item.to} className={customStyle === 'footer-li-anchor' ? 'text-blue-500 hover:underline' : 'text-white'}>
             {item.content}
           </Anchor>
         </li>

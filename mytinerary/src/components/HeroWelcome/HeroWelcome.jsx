@@ -1,7 +1,7 @@
-// Home.js
 import React from 'react';
+import { Link as Anchor} from 'react-router-dom';
 
-const Home = () => {
+const HeroWelcome = () => {
   return (
     <>
       {/* Hero/Welcome section */}
@@ -12,14 +12,13 @@ const Home = () => {
         </p>
         {/* Call to Action */}
         <div className="mt-4">
-          <button className="px-6 py-3 bg-blue-500 text-white rounded-lg font-bold shadow-lg">
+          <Anchor to="/cities" className="px-6 py-3 bg-blue-500 text-white rounded-lg font-bold shadow-lg">
             Explore Cities
-          </button>
+          </Anchor>
         </div>
       </section>
-
     </>
   );
 };
 
-export default Home;
+export default HeroWelcome;

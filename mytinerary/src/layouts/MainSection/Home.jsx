@@ -1,23 +1,25 @@
 
 import React from 'react';
-import MainHeader from './MainHeader';
-import MainHero from './MainHero';
+
 import Carousel from '../../components/MainCarousel/Carousel';
+import MainHeader from '../MainHeader/MainHeader';
+import HeroWelcome from '../../components/HeroWelcome/HeroWelcome';
 import Footer from '../MainFooter/Footer';
 
-const Home = ({children}) => {
+
+const Home = () => {
   return (
+    <>
+        <MainHeader />
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
        
-       <MainHeader />
-        <MainHero />
-      
-        <Carousel />
-      
-      <Footer />
-      {children}
     
+        <HeroWelcome/>
+        <Carousel />     
     </div>
+       <Footer/>
+
+    </>
   )
 };
 
