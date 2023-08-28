@@ -37,8 +37,8 @@ const Cities = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {filteredCities.map((city) => (
-          <div key={city.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-            <Anchor to={{ pathname: `/Cities/${city.name}`, state: { imageUrl: city.image } }}>
+          <div key={city._id} className="bg-white rounded-lg shadow-md overflow-hidden">
+            <Anchor to={{ pathname: `/cities/${city.name}`, state: { imageUrl: city.image } }}>
               <img className="w-full h-48 object-cover" src={city.image} alt={city.name} />
               <p className="p-4">{city.name}</p>
             </Anchor>
