@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link as Anchor, useLocation } from 'react-router-dom';
+import MainHeader from '../../layouts/MainHeader/MainHeader';
+import Footer from '../../layouts/MainFooter/Footer';
 
 const CityCard = () => {
   const location = useLocation();
@@ -7,6 +9,8 @@ const CityCard = () => {
   const imageUrl = queryParams.get('imageUrl');
 
   return (
+    <>
+    <MainHeader/>
     <div className="bg-gray-200 py-8 px-4 md:px-8">
       <div className="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-4">City Details</h2>
@@ -20,6 +24,8 @@ const CityCard = () => {
         </Anchor>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

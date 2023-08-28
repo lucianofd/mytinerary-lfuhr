@@ -4,6 +4,7 @@ import { Link as Anchor } from 'react-router-dom';
 import SearchBar from '../SearchBars/SearchBar';
 import MainHeader from '../../layouts/MainHeader/MainHeader';
 import { getItems } from '../../apiService';
+import Footer from '../../layouts/MainFooter/Footer';
 
 const Cities = (props) => {
   const [cities, setCities] = useState([]);
@@ -48,6 +49,7 @@ const Cities = (props) => {
         ))}
       </div>
     </div>
+    <Footer/>
    </div> 
   );
 };
