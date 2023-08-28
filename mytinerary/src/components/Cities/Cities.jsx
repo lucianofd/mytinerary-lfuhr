@@ -5,7 +5,7 @@ import SearchBar from '../SearchBars/SearchBar';
 import MainHeader from '../../layouts/MainHeader/MainHeader';
 import { getItems } from '../../apiService';
 
-const Cities = () => {
+const Cities = (props) => {
   const [cities, setCities] = useState([]);
   const [filteredCities, setFilteredCities] = useState([]);
 
@@ -38,11 +38,13 @@ const Cities = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {filteredCities.map((city) => (
           <div key={city._id} className="bg-white rounded-lg shadow-md overflow-hidden">
-            <Anchor to={{ pathname: `/cities/${city.name}`, state: { imageUrl: city.image } }}>
-              <img className="w-full h-48 object-cover" src={city.image} alt={city.name} />
-              <p className="p-4">{city.name}</p>
-            </Anchor>
-          </div>
+          <Anchor
+            to={`/cities/${city.name}?imageUrl=${encodeURIComponent(city.image)}`}
+          >
+            <img className="w-full h-48 object-cover" src={city.image} alt={city.name} />
+            <p className="p-4">{city.name}</p>
+          </Anchor>
+        </div>
         ))}
       </div>
     </div>
