@@ -1,34 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { getItems } from '../../apiService';
+import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
 const Carousel = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [imageGroups, setImageGroups] = useState([]);
   const [currentGroup, setCurrentGroup] = useState(0); 
   
+  console.log(imageGroups);
   console.log(currentGroup);
   
   useEffect(() => {
     const fetchData = async () => {
       try {
         const cities = await getItems(); //función get del servicio
-        const groups = [];
-
+        console.log(cities);
+        let groups = [];
+        
         for (let i = 0; i < cities.length; i += 4) {
           groups.push(cities.slice(i, i + 4));
         }
-        
+           
         setImageGroups(groups);
+        
         setCurrentGroup(0);
-        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching cities:', error);
       }
+      setIsLoading(false);
     };
-
-    fetchData();   
-      // Cambia grupos de imágenes de forma automática
-      const interval = setInterval(goToNextGroup, 5000);
+    fetchData();
+    // Cambia grupos de imágenes de forma automática
+    const interval = setInterval(goToNextGroup, 3000);
       return () => clearInterval(interval);
 
   }, []);
@@ -59,12 +62,12 @@ const Carousel = () => {
         <div className="flex flex-wrap w-96 h-96">
           {console.log('imageGroups[currentGroup]:', imageGroups[currentGroup])}
           {imageGroups[currentGroup] && imageGroups[currentGroup].map((city) => (
-            <div className="flex w-1/2" key={city.id}>
+            <div className="flex w-1/2 p-2 mb-4" key={city.id}>
               <div
                 key={city.id}
                 className="w-1/2 p-2 rounded-md overflow-hidden shadow-lg transform transition-all duration-500"
               >
-                <img className="w-full h-full object-cover" src={city.image} alt={city.name} />
+                <img className="w-full h-full object-cover" src={city.picture} alt={city.name} />
                 <p className="text-white bg-blue-500 text-center p-2">{city.name}</p>
               </div>
             </div>
@@ -76,13 +79,12 @@ const Carousel = () => {
           onClick={goToPrevGroup}
           className="text-gray-600 hover:text-gray-900 transition duration-300"
         >
-          {/* Ícono de flecha hacia la izquierda */}
+           <FaChevronLeft />
         </button>
         <button
           onClick={goToNextGroup}
-          className="text-red-600 hover:text-gray-900 transition duration-300"
-        >
-          {/* Ícono de flecha hacia la derecha */}
+          className="text-gray-600 hover:text-gray-900 transition duration-300">
+          <FaChevronRight />
         </button>
       </div>
     </div>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link as Anchor } from 'react-router-dom';
 import SearchBar from '../SearchBars/SearchBar';
 import MainHeader from '../../layouts/MainHeader/MainHeader';
@@ -15,6 +14,7 @@ const Cities = (props) => {
     const fetchData = async () => {
       try {
         const cities = await getItems();
+        console.log(cities);
         setCities(cities);
         setFilteredCities(cities);
       } catch (error) {
@@ -40,9 +40,9 @@ const Cities = (props) => {
         {filteredCities.map((city) => (
           <div key={city._id} className="bg-white rounded-lg shadow-md overflow-hidden">
           <Anchor
-            to={`/cities/${city.name}?imageUrl=${encodeURIComponent(city.image)}`}
+            to={`/cities/${city.name}?imageUrl=${encodeURIComponent(city.picture)}`}
           >
-            <img className="w-full h-48 object-cover" src={city.image} alt={city.name} />
+            <img className="w-full h-48 object-cover" src={city.picture} alt={city.name} />
             <p className="p-4">{city.name}</p>
           </Anchor>
         </div>
