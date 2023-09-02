@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <>
         <MainHeader />
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2">
        
     
         <HeroWelcome/>
